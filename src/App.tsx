@@ -40,10 +40,8 @@ function App() {
         )}
         {!loading && (
           <>
-            <div>
-              <span style={{minWidth: '130px', display: 'inline-block'}}>ValorPromedio:</span>
-              {`${format(state.valor)}`} al {`${state.fecha}`}
-            </div>
+            <div className='text-2xl mx-auto'>{`${state.fecha}`}</div>
+            <hr className='mb-4'/>
             <div>
               <span style={{minWidth: '130px', display: 'inline-block'}}>Compra:</span>
               {`${format(state.compra)}`}
@@ -51,6 +49,10 @@ function App() {
             <div>
               <span style={{minWidth: '130px', display: 'inline-block'}}>Venta:</span>
               {`${format(state.venta)}`}
+            </div>
+            <div>
+              <span style={{minWidth: '130px', display: 'inline-block'}}>Promedio:</span>
+              {`${format(state.valor)}`}
             </div>
           </>
         )}

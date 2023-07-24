@@ -52,7 +52,7 @@ function App() {
             </div>
             <div>
               <span style={{minWidth: '130px', display: 'inline-block'}}>Promedio:</span>
-              {`${format(state.valor)}`}
+              <span className='font-bold'>{`${format(state.valor)}`}</span>
             </div>
           </>
         )}

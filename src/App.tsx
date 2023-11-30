@@ -91,8 +91,8 @@ function App() {
       <div className="mt-10 border-gray-300 border p-8 rounded-md flex flex-col gap-2 mx-auto" style={{width: '480px'}}>
         {loading && (
           <h1>Loading....</h1>
-          )}
-        {!(loading) && (
+        )}
+        {! loading && (
           <>
             <h1 className='font-bold text-2xl'>Dolares JP</h1>
             <hr className='mt-2 mb-2'/>

@@ -89,113 +89,112 @@ function App() {
   return (
     <>
       <div className="mt-10 border-gray-300 border p-8 rounded-md flex flex-col gap-2 mx-auto" style={{width: '480px'}}>
-        {loading && (
+        {loading ? (
           <h1>Loading....</h1>
-        )}
-        {! loading ? (
-          <>
-            <h1 className='font-bold text-2xl'>Dolares JP</h1>
-            <hr className='mt-2 mb-2'/>
-            <div>
-              <label htmlFor="USD"  style={{minWidth: '115px', display: 'inline-block'}}>Dolares:</label>
-              <input autoFocus={true} autoComplete='off' id="USD" type="text"  className='ml-3 border border-gray-300 rounded-md p-1'
-                value={usd1}
-                onChange={e => {
-                  setType('USD')
-                  setArs1('')
-                  setArs2('')
-                  setArs3('')
-                  setUsd1(e.target.value)
-                  setUsd2(e.target.value)
-                  setUsd3(e.target.value)
-              }}/>
-            </div>
-            <div>
-              <label htmlFor='ARS' style={{minWidth: '115px', display: 'inline-block'}}>Pesos:</label>
-              <input id='ARS' type="text" className='ml-3 border border-gray-300 rounded-md p-1'
-                autoComplete='off' value={ars1}
-                onChange={e => {
-                  setType('ARS')
-                  setUsd1('')
-                  setUsd2('')
-                  setUsd3('')
-                  setArs1(e.target.value)
-                  setArs2(e.target.value)
-                  setArs3(e.target.value)
-              }}/>
-            </div>
-            <hr className='mt-2 mb-2'/>
-            <span className='text-md font-bold mb-3'>
-              api.bluelytics.com.ar al {`${state.fecha}`}
-            </span>
-            <div className='flex flex-col'>
-              <div className='flex w-full'>
-                <span className='text-sm font-bold w-[120px] text-right'>Compra</span>
-                <span className='text-sm font-bold w-[120px] text-right'>Venta</span>
-                <span className='text-sm font-bold w-[120px] text-right'>Promedio</span>
-                <span className='text-sm font-bold w-[120px] text-right'>Total</span>
+          ) : (
+            <>
+              <h1 className='font-bold text-2xl'>Dolares JP</h1>
+              <hr className='mt-2 mb-2'/>
+              <div>
+                <label htmlFor="USD"  style={{minWidth: '115px', display: 'inline-block'}}>Dolares:</label>
+                <input autoFocus={true} autoComplete='off' id="USD" type="text"  className='ml-3 border border-gray-300 rounded-md p-1'
+                  value={usd1}
+                  onChange={e => {
+                    setType('USD')
+                    setArs1('')
+                    setArs2('')
+                    setArs3('')
+                    setUsd1(e.target.value)
+                    setUsd2(e.target.value)
+                    setUsd3(e.target.value)
+                }}/>
               </div>
-              <div className='flex w-full'>
-                <span className='text-sm w-[120px] text-right'>{format(state.compra)}</span>
-                <span className='text-sm w-[120px] text-right'>{format(state.venta)}</span>
-                <span className='text-sm w-[120px] text-right'>{format(state.valor)}</span>
-                <span className='text-sm w-[120px] text-right'>{format(Number(total1))}</span>
+              <div>
+                <label htmlFor='ARS' style={{minWidth: '115px', display: 'inline-block'}}>Pesos:</label>
+                <input id='ARS' type="text" className='ml-3 border border-gray-300 rounded-md p-1'
+                  autoComplete='off' value={ars1}
+                  onChange={e => {
+                    setType('ARS')
+                    setUsd1('')
+                    setUsd2('')
+                    setUsd3('')
+                    setArs1(e.target.value)
+                    setArs2(e.target.value)
+                    setArs3(e.target.value)
+                }}/>
               </div>
-            </div>
-            <div className='ml-auto'>
+              <hr className='mt-2 mb-2'/>
+              <span className='text-md font-bold mb-3'>
+                api.bluelytics.com.ar al {`${state.fecha}`}
+              </span>
+              <div className='flex flex-col'>
+                <div className='flex w-full'>
+                  <span className='text-sm font-bold w-[120px] text-right'>Compra</span>
+                  <span className='text-sm font-bold w-[120px] text-right'>Venta</span>
+                  <span className='text-sm font-bold w-[120px] text-right'>Promedio</span>
+                  <span className='text-sm font-bold w-[120px] text-right'>Total</span>
+                </div>
+                <div className='flex w-full'>
+                  <span className='text-sm w-[120px] text-right'>{format(state.compra)}</span>
+                  <span className='text-sm w-[120px] text-right'>{format(state.venta)}</span>
+                  <span className='text-sm w-[120px] text-right'>{format(state.valor)}</span>
+                  <span className='text-sm w-[120px] text-right'>{format(Number(total1))}</span>
+                </div>
+              </div>
+              <div className='ml-auto'>
+                  <span style={{minWidth: '132px', display: 'inline-block'}}>Total:</span>
+                  <span className='text-lg font-bold'>{format(Number(total1))}</span>
+                </div>
+
+              <hr className='mt-2 mb-2'/>
+                
+              <span className='text-md font-bold mb-3'>
+                Dolarapi.com al {state2.fecha}
+              </span>
+              <div className='flex flex-col'>
+                <div className='flex w-full'>
+                  <span className='text-sm font-bold w-[120px] text-right'>Compra</span>
+                  <span className='text-sm font-bold w-[120px] text-right'>Venta</span>
+                  <span className='text-sm font-bold w-[120px] text-right'>Promedio</span>
+                  <span className='text-sm font-bold w-[120px] text-right'>Total</span>
+                </div>
+                <div className='flex w-full'>
+                  <span className='text-sm w-[120px] text-right'>{format(state2.compra)}</span>
+                  <span className='text-sm w-[120px] text-right'>{format(state2.venta)}</span>
+                  <span className='text-sm w-[120px] text-right'>{format(state2.valor)}</span>
+                  <span className='text-sm w-[120px] text-right'>{format(Number(total2))}</span>
+                </div>
+              </div>
+              <div className='ml-auto'>
                 <span style={{minWidth: '132px', display: 'inline-block'}}>Total:</span>
-                <span className='text-lg font-bold'>{format(Number(total1))}</span>
+                <span className='text-lg font-bold'>{format(Number(total2))}</span>
               </div>
 
-            <hr className='mt-2 mb-2'/>
-              
-            <span className='text-md font-bold mb-3'>
-              Dolarapi.com al {state2.fecha}
-            </span>
-            <div className='flex flex-col'>
-              <div className='flex w-full'>
-                <span className='text-sm font-bold w-[120px] text-right'>Compra</span>
-                <span className='text-sm font-bold w-[120px] text-right'>Venta</span>
-                <span className='text-sm font-bold w-[120px] text-right'>Promedio</span>
-                <span className='text-sm font-bold w-[120px] text-right'>Total</span>
+              <hr className='mt-2 mb-2'/>
+                
+              <span className='text-md font-bold mb-3'>
+              api.bluelytics.com.ar {state2.fecha}
+              </span>
+              <div className='flex flex-col'>
+                <div className='flex w-full'>
+                  <span className='text-sm font-bold w-[120px] text-right'>Compra</span>
+                  <span className='text-sm font-bold w-[120px] text-right'>Venta</span>
+                  <span className='text-sm font-bold w-[120px] text-right'>Promedio</span>
+                  <span className='text-sm font-bold w-[120px] text-right'>Total</span>
+                </div>
+                <div className='flex w-full'>
+                  <span className='text-sm w-[120px] text-right'>{format(state3.compra)}</span>
+                  <span className='text-sm w-[120px] text-right'>{format(state3.venta)}</span>
+                  <span className='text-sm w-[120px] text-right'>{format(state3.valor)}</span>
+                  <span className='text-sm w-[120px] text-right'>{format(Number(total3))}</span>
+                </div>
               </div>
-              <div className='flex w-full'>
-                <span className='text-sm w-[120px] text-right'>{format(state2.compra)}</span>
-                <span className='text-sm w-[120px] text-right'>{format(state2.venta)}</span>
-                <span className='text-sm w-[120px] text-right'>{format(state2.valor)}</span>
-                <span className='text-sm w-[120px] text-right'>{format(Number(total2))}</span>
+              <div className='ml-auto'>
+                <span style={{minWidth: '132px', display: 'inline-block'}}>Total:</span>
+                <span className='text-lg font-bold'>{format(Number(total3))}</span>
               </div>
-            </div>
-            <div className='ml-auto'>
-              <span style={{minWidth: '132px', display: 'inline-block'}}>Total:</span>
-              <span className='text-lg font-bold'>{format(Number(total2))}</span>
-            </div>
-
-            <hr className='mt-2 mb-2'/>
-              
-            <span className='text-md font-bold mb-3'>
-            api.bluelytics.com.ar {state2.fecha}
-            </span>
-            <div className='flex flex-col'>
-              <div className='flex w-full'>
-                <span className='text-sm font-bold w-[120px] text-right'>Compra</span>
-                <span className='text-sm font-bold w-[120px] text-right'>Venta</span>
-                <span className='text-sm font-bold w-[120px] text-right'>Promedio</span>
-                <span className='text-sm font-bold w-[120px] text-right'>Total</span>
-              </div>
-              <div className='flex w-full'>
-                <span className='text-sm w-[120px] text-right'>{format(state3.compra)}</span>
-                <span className='text-sm w-[120px] text-right'>{format(state3.venta)}</span>
-                <span className='text-sm w-[120px] text-right'>{format(state3.valor)}</span>
-                <span className='text-sm w-[120px] text-right'>{format(Number(total3))}</span>
-              </div>
-            </div>
-            <div className='ml-auto'>
-              <span style={{minWidth: '132px', display: 'inline-block'}}>Total:</span>
-              <span className='text-lg font-bold'>{format(Number(total3))}</span>
-            </div>
-          </>
-        ): null}
+            </>
+          )}
       </div>
     </>
     )

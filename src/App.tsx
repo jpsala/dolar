@@ -92,7 +92,7 @@ function App() {
         {loading && (
           <h1>Loading....</h1>
         )}
-        {! loading && (
+        {! loading ? (
           <>
             <h1 className='font-bold text-2xl'>Dolares JP</h1>
             <hr className='mt-2 mb-2'/>
@@ -195,7 +195,7 @@ function App() {
               <span className='text-lg font-bold'>{format(Number(total3))}</span>
             </div>
           </>
-        )}
+        ): null}
       </div>
     </>
     )

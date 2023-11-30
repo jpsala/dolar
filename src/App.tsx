@@ -88,7 +88,6 @@ function App() {
 
   return (
     <>
-      <pre>{JSON.stringify(loading)}</pre>
       <div className="mt-10 border-gray-300 border p-8 rounded-md flex flex-col gap-2 mx-auto" style={{width: '480px'}}>
         {loading && (
           <h1>Loading....</h1>

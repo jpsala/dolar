@@ -58,7 +58,8 @@ type EndpointConfig = {
 const App: React.FC = () => {
   const [loading, setLoading] = useState<number>(0);
   const [type, setType] = useState<'USD' | 'ARS'>('USD');
-  const [amount, setAmount] = useState<string>('');
+  const [amountUSD, setAmountUSD] = useState<string>('');
+  const [amountARS, setAmountARS] = useState<string>('');
   const [exchangeRates, setExchangeRates] = useState<ExchangeRate[]>([]);
   const endpoints: EndpointConfig[] = [
     {
@@ -94,7 +95,6 @@ const App: React.FC = () => {
     {
       label: 'DolarAPI',
       url: 'https://dolarapi.com/v1/dolares/blue',
-      // Here parseData should explicitly expect a DolarApiResponse
       parseData: (data: ApiResponseType): ExchangeRate => {
         if ('compra' in data && 'venta' in data && 'fechaActualizacion' in data) {
           return {
@@ -107,24 +107,24 @@ const App: React.FC = () => {
         throw new Error("Data does not match DolarApiResponse structure");
       }
     },
-    {
-      label: 'DolarSi',
-      url: 'https://www.dolarsi.com/api/api.php?type=valoresprincipales',
-      parseData: (data: ApiResponseType): ExchangeRate => {
-        const dolarBlueData = Array.isArray(data) ? data.find(item => item.casa.nombre === "Dolar Blue")?.casa : null
+    // {
+    //   label: 'DolarSi',
+    //   url: 'https://www.dolarsi.com/api/api.php?type=valoresprincipales',
+    //   parseData: (data: ApiResponseType): ExchangeRate => {
+    //     const dolarBlueData = Array.isArray(data) ? data.find(item => item.casa.nombre === "Dolar Blue")?.casa : null
   
-        if (dolarBlueData) {
-          return {
-            compra: parseFloat(dolarBlueData.compra.replace('.', '').replace(',', '.')),
-            venta: parseFloat(dolarBlueData.venta.replace('.', '').replace(',', '.')),
-            fecha: '', // The API response doesn't include a date field for Dolar Blue
-            valor: (parseFloat(dolarBlueData.compra.replace('.', '').replace(',', '.')) + parseFloat(dolarBlueData.venta.replace(',', '.'))) / 2
-          };
-        }
+    //     if (dolarBlueData) {
+    //       return {
+    //         compra: parseFloat(dolarBlueData.compra.replace('.', '').replace(',', '.')),
+    //         venta: parseFloat(dolarBlueData.venta.replace('.', '').replace(',', '.')),
+    //         fecha: '', // The API response doesn't include a date field for Dolar Blue
+    //         valor: (parseFloat(dolarBlueData.compra.replace('.', '').replace(',', '.')) + parseFloat(dolarBlueData.venta.replace(',', '.'))) / 2
+    //       };
+    //     }
   
-        throw new Error("Dolar Blue data not found in DolarsiApiResponse structure");
-      }
-    },
+    //     throw new Error("Dolar Blue data not found in DolarsiApiResponse structure");
+    //   }
+    // },
     
   ];
   
@@ -168,12 +168,15 @@ const App: React.FC = () => {
   };
 
   const calculateTotal = (valor: number) => {
-    console.log("Calculating total with valor:", valor, "and amount:", amount);
+    const amount = type === 'USD' ? amountUSD : amountARS;
     const numericAmount = parseFloat(amount) || 0;
     const total = type === 'USD' ? (numericAmount * valor) : (numericAmount / valor);
-    console.log("Calculated total:", total);
     return total;
   };
+
+  useEffect(() => {
+    console.log('amountUSD:', amountUSD, 'type:', type);
+  }, [amountUSD, type]);
 
   return (
     <>
@@ -185,12 +188,23 @@ const App: React.FC = () => {
             <h1 className='font-bold text-2xl'>Dolares JP</h1>
             <hr className='mt-2 mb-2'/>
             <div>
-              <label htmlFor="USD" style={{minWidth: '115px', display: 'inline-block'}}>Amount:</label>
+              <label htmlFor="USD" style={{minWidth: '115px', display: 'inline-block'}}>Dólares:</label>
               <input autoFocus={true} autoComplete='off' id="USD" type="text" className='ml-3 border border-gray-300 rounded-md p-1'
-                value={amount}
+                value={amountUSD}
                 onChange={e => {
                   setType('USD');
-                  setAmount(e.target.value);
+                  setAmountUSD(e.target.value);
+                  setAmountARS('');
+                }}/>
+            </div>
+            <div>
+              <label htmlFor="USD" style={{minWidth: '115px', display: 'inline-block'}}>Pesos:</label>
+              <input autoFocus={true} autoComplete='off' id="USD" type="text" className='ml-3 border border-gray-300 rounded-md p-1'
+                value={amountARS}
+                onChange={e => {
+                  setType('ARS');
+                  setAmountARS(e.target.value);
+                  setAmountUSD('');
                 }}/>
             </div>
             <hr className='mt-2 mb-2'/>
